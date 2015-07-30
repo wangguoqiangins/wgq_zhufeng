@@ -7,9 +7,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.*;
 import com.qianfeng.zhufengfm.app.R;
 import com.qianfeng.zhufengfm.app.SettingsActivity;
 import com.qianfeng.zhufengfm.app.Test1Activity;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +20,7 @@ import com.qianfeng.zhufengfm.app.Test1Activity;
  * Date: 15/7/29
  * Email: vhly@163.com
  */
-public class DiscoverRecommendFragment extends Fragment implements View.OnClickListener {
+public class DiscoverRecommendFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     public DiscoverRecommendFragment() {
     }
@@ -28,41 +31,89 @@ public class DiscoverRecommendFragment extends Fragment implements View.OnClickL
         // Inflate the layout for this fragment
         View ret = inflater.inflate(R.layout.fragment_discover_recommend, container, false);
 
-        View btn = ret.findViewById(R.id.btnTest);
+        ListView listView = (ListView) ret.findViewById(R.id.discover_recommend_list);
 
-        if (btn != null) {
+        if (listView != null) {
 
-            btn.setOnClickListener(this);
+            // TODO 设置实际数据的 Adapter
 
-        }
+            /////
 
-        btn = ret.findViewById(R.id.btnSettings);
+            // 添加头部
 
-        if (btn != null) {
-            btn.setOnClickListener(this);
+            FragmentActivity activity = getActivity();
+
+            ImageView imageView = new ImageView(activity);
+
+            imageView.setImageResource(R.mipmap.ic_launcher);
+
+            // 通过这个方法，添加跟随滚动的Header
+            listView.addHeaderView(imageView);
+
+            imageView = new ImageView(activity);
+            imageView.setImageResource(R.mipmap.ic_action_search);
+            listView.addHeaderView(imageView);
+
+            //////////////////
+
+            // 添加底部视图
+
+            TextView btn = new TextView(activity);
+            btn.setText("点击加载更多");
+
+            listView.addFooterView(btn);
+
+
+
+            ArrayList<String> strings = new ArrayList<String>();
+
+            for (int i = 0; i < 30; i++) {
+                strings.add("Java - " + i);
+            }
+
+            ArrayAdapter<String> adapter =
+                    new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, strings);
+
+            listView.setAdapter(adapter);
+
+            ////////////////
+
+            listView.setOnItemClickListener(this);
+
         }
 
         return ret;
     }
 
     @Override
-    public void onClick(View v) {
-        FragmentActivity context = getActivity();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        FragmentActivity activity = getActivity();
 
-        int id = v.getId();
+        if (parent instanceof ListView){
+            ListView listView = (ListView) parent;
+            int headerViewsCount = listView.getHeaderViewsCount();
 
-        Intent intent = null;
+            // 调整因为 HeaderView导致的偏移
+            position -= headerViewsCount;
 
-        switch (id){
-            case R.id.btnTest:
-                intent = new Intent(context, Test1Activity.class);
-                break;
-            case R.id.btnSettings:
-                intent = new Intent(context, SettingsActivity.class);
-                break;
+            int footerViewsCount = listView.getFooterViewsCount();
+
+            if(footerViewsCount > 0){
+                // 数据的个数
+                if(position >= 30){
+                    // 点的不是数据，因为
+                }else{
+
+                }
+            }else{
+                // 点到数据上了
+            }
+
+
+
+
         }
 
-        context.startActivity(intent);
-
+        Toast.makeText(activity, "点击 " + position, Toast.LENGTH_LONG).show();
     }
 }

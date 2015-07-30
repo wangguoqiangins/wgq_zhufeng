@@ -6,18 +6,12 @@
               android:layout_height="match_parent"
         >
 
-    <Button
-            android:id="@+id/btnTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="启动Activty"
-            />
+    <ListView
+            android:id="@+id/discover_recommend_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
-    <Button
-            android:id="@+id/btnSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="启动设置"
-            />
+    </ListView>
 
 </LinearLayout>
