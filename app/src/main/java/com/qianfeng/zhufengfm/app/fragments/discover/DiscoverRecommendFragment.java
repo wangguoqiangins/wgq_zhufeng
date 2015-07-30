@@ -45,9 +45,6 @@ public class DiscoverRecommendFragment extends Fragment implements View.OnClickL
         Intent intent = new Intent(context, Test1Activity.class);
 
         context.startActivity(intent);
-        // 对于startActivity 而言，新的是进入
-        // 动画指定 id 为 0代表没有动画
-        context.overridePendingTransition(R.anim.anim_slide_to_left, 0);
 
     }
 }

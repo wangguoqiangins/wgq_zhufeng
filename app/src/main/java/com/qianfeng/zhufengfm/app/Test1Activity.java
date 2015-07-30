@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class Test1Activity extends ActionBarActivity {
+public class Test1Activity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,9 +14,4 @@ public class Test1Activity extends ActionBarActivity {
         setContentView(R.layout.activity_test1);
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(0, R.anim.anim_drop_down);
-    }
 }

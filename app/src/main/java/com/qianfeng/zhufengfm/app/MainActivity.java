@@ -14,7 +14,7 @@ import com.qianfeng.zhufengfm.app.fragments.ProfileFragment;
 /**
  * 主界面
  */
-public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private DiscoverFragment discoverFragment;
 
@@ -79,5 +79,10 @@ public class MainActivity extends FragmentActivity implements RadioGroup.OnCheck
 
         transaction.commit();
 
+    }
+
+    @Override
+    protected int getExitAnimationId() {
+        return 0;
     }
 }
