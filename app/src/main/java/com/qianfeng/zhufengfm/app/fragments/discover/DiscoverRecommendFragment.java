@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.qianfeng.zhufengfm.app.R;
+import com.qianfeng.zhufengfm.app.SettingsActivity;
 import com.qianfeng.zhufengfm.app.Test1Activity;
 
 /**
@@ -35,6 +36,12 @@ public class DiscoverRecommendFragment extends Fragment implements View.OnClickL
 
         }
 
+        btn = ret.findViewById(R.id.btnSettings);
+
+        if (btn != null) {
+            btn.setOnClickListener(this);
+        }
+
         return ret;
     }
 
@@ -42,7 +49,18 @@ public class DiscoverRecommendFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         FragmentActivity context = getActivity();
 
-        Intent intent = new Intent(context, Test1Activity.class);
+        int id = v.getId();
+
+        Intent intent = null;
+
+        switch (id){
+            case R.id.btnTest:
+                intent = new Intent(context, Test1Activity.class);
+                break;
+            case R.id.btnSettings:
+                intent = new Intent(context, SettingsActivity.class);
+                break;
+        }
 
         context.startActivity(intent);
 

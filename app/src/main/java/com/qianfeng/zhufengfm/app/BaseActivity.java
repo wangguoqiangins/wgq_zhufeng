@@ -3,6 +3,7 @@ package com.qianfeng.zhufengfm.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.widget.TextView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,6 +16,35 @@ import android.support.v4.app.FragmentActivity;
  * 基础的Activity
  */
 public class BaseActivity extends FragmentActivity {
+
+    private TextView txtTitle;
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+
+        // TODO 进行公共的，一些控件的内容初始化
+
+        // 只要调用了 super.setContentView 就可以findViewById了
+
+        txtTitle = (TextView) findViewById(R.id.common_header_title);
+
+    }
+
+    /**
+     * Activity设置标题的方法
+     * @param title
+     */
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+
+        if (txtTitle != null) {
+
+            txtTitle.setText(title);
+
+        }
+    }
 
     /**
      * 获取 startActivity 之后，新的Activity 进入的动画<br/>
@@ -43,6 +73,13 @@ public class BaseActivity extends FragmentActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, getExitAnimationId());
+
+        int exitAnimationId = getExitAnimationId();
+
+        if(exitAnimationId != 0) {
+
+            overridePendingTransition(0, exitAnimationId);
+
+        }
     }
 }

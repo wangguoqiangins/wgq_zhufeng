@@ -29,6 +29,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ////////////////////////////////////////////////
+
+        setTitle("主界面");
+
+
+        ////////////////////////////////////////////////
+
         RadioGroup tabBar =
                 (RadioGroup) findViewById(R.id.main_tab_bar);
 

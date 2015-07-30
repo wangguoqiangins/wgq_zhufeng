@@ -4,15 +4,16 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 
-public class Test1Activity extends BaseActivity {
+public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test1);
+        setContentView(R.layout.activity_settings);
 
-        setTitle("测试");
+        setTitle("设置");
 
     }
+
 
 }
