@@ -7,7 +7,7 @@ package com.qianfeng.zhufengfm.app.data;
  * Email: vhly@163.com
  */
 
-import com.qianfeng.zhufengfm.app.model.DiscoverCategory;
+import com.qianfeng.zhufengfm.app.model.discover.DiscoverCategory;
 
 import java.util.Collections;
 import java.util.LinkedList;

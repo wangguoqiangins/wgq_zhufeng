@@ -1,4 +1,4 @@
-package com.qianfeng.zhufengfm.app.model;
+package com.qianfeng.zhufengfm.app.model.discover;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,8 +9,6 @@ package com.qianfeng.zhufengfm.app.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 /**
  * 发现的大分类

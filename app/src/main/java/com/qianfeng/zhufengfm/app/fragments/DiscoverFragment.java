@@ -12,7 +12,7 @@ import com.qianfeng.zhufengfm.app.Constants;
 import com.qianfeng.zhufengfm.app.R;
 import com.qianfeng.zhufengfm.app.adapters.CommonFragmentPagerAdapter;
 import com.qianfeng.zhufengfm.app.fragments.discover.*;
-import com.qianfeng.zhufengfm.app.model.DiscoverTab;
+import com.qianfeng.zhufengfm.app.model.discover.DiscoverTab;
 import com.qianfeng.zhufengfm.app.parsers.DataParser;
 import com.qianfeng.zhufengfm.app.tasks.TaskCallback;
 import com.qianfeng.zhufengfm.app.tasks.TaskResult;

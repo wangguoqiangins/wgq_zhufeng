@@ -1,4 +1,4 @@
-package com.qianfeng.zhufengfm.app.model;
+package com.qianfeng.zhufengfm.app.model.discover;
 
 import org.json.JSONException;
 import org.json.JSONObject;

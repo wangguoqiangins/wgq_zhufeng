@@ -1,8 +1,8 @@
 package com.qianfeng.zhufengfm.app.parsers;
 
 import com.qianfeng.zhufengfm.app.model.CategoryTagMenu;
-import com.qianfeng.zhufengfm.app.model.DiscoverCategory;
-import com.qianfeng.zhufengfm.app.model.DiscoverTab;
+import com.qianfeng.zhufengfm.app.model.discover.DiscoverCategory;
+import com.qianfeng.zhufengfm.app.model.discover.DiscoverTab;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
