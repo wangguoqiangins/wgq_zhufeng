@@ -48,8 +48,8 @@ public class Sprint {
             sharePic = json.getString("sharePic");
             enableShare = json.getBoolean("enableShare");
             contentUpdatedAt = json.getLong("contentUpdatedAt");
-            isHot = json.getBoolean("isHot");
-            isExternalUrl = json.getBoolean("isExternalUrl");
+            isHot = json.optBoolean("isHot");
+            isExternalUrl = json.optBoolean("isExternalUrl");
         }
     }
 

@@ -60,6 +60,10 @@ public class HotRecommend {
         }
     }
 
+    public List<AlbumRecommend> getList() {
+        return list;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }

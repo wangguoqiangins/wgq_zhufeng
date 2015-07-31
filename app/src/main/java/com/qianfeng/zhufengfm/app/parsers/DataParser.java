@@ -1,6 +1,7 @@
 package com.qianfeng.zhufengfm.app.parsers;
 
 import com.qianfeng.zhufengfm.app.model.CategoryTagMenu;
+import com.qianfeng.zhufengfm.app.model.DiscoverRecommend;
 import com.qianfeng.zhufengfm.app.model.discover.DiscoverCategory;
 import com.qianfeng.zhufengfm.app.model.discover.DiscoverTab;
 import org.json.JSONArray;
@@ -20,6 +21,37 @@ public final class DataParser {
 
     private DataParser(){
 
+    }
+
+    /**
+     * 解析 发现 －》 推荐 数据结构
+     * TODO 没有解析完成
+     * @param json
+     * @return
+     */
+    public static DiscoverRecommend parseDiscoverRecommend(JSONObject json){
+        DiscoverRecommend ret = null;
+
+        if (json != null) {
+
+            try {
+                int code = json.getInt("ret");
+
+                if (code == 0){
+
+                    ret = new DiscoverRecommend();
+
+                    ret.parseJSON(json);
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return ret;
     }
 
     /**

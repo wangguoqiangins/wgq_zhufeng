@@ -112,4 +112,47 @@ public final class ClientDiscoverAPI {
 
         return ret;
     }
+
+    /**
+     * 获取 发现 －》 推荐的内容<br/>
+     * 调用接口: http://mobile.ximalaya.com/mobile/discovery/v1/recommends
+     * 参数: <br/>
+     * <ul>
+     * <li>channel=and-f6</li>
+     * <li>device=android</li>
+     * <li>includeActivity=true</li>
+     * <li>includeSpecial=true</li>
+     * <li>scale=2</li>
+     * <li>version=4.1.7.1</li>
+     * </ul>
+     *
+     * @return
+     */
+    public static String getDiscoverRecommends() {
+        String ret = null;
+
+        String url =
+                SERVER_MOBILE + "/mobile/discovery/v1/recommends"
+                + "?channel=and-f6"
+                + "&device=android"
+                + "&includeActivity=true"
+                + "&includeSpecial=true"
+                + "&scale=2"
+                + "&version=4.1.7.1"
+                ;
+
+        byte[] bytes = HttpUtil.doGet(url);
+
+        if (bytes != null) {
+
+            try {
+                ret = new String(bytes, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                ret = new String(bytes);
+            }
+
+        }
+
+        return ret;
+    }
 }

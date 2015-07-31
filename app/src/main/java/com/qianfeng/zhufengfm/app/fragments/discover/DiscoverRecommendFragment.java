@@ -1,18 +1,23 @@
 package com.qianfeng.zhufengfm.app.fragments.discover;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+import com.qianfeng.zhufengfm.app.Constants;
 import com.qianfeng.zhufengfm.app.R;
-import com.qianfeng.zhufengfm.app.SettingsActivity;
-import com.qianfeng.zhufengfm.app.Test1Activity;
-
-import java.util.ArrayList;
+import com.qianfeng.zhufengfm.app.adapters.DiscoverRecommendAdapter;
+import com.qianfeng.zhufengfm.app.model.DiscoverRecommend;
+import com.qianfeng.zhufengfm.app.parsers.DataParser;
+import com.qianfeng.zhufengfm.app.tasks.TaskCallback;
+import com.qianfeng.zhufengfm.app.tasks.TaskResult;
+import com.qianfeng.zhufengfm.app.tasks.impl.DiscoverRecommendTask;
+import org.json.JSONObject;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +25,9 @@ import java.util.ArrayList;
  * Date: 15/7/29
  * Email: vhly@163.com
  */
-public class DiscoverRecommendFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class DiscoverRecommendFragment extends Fragment implements AdapterView.OnItemClickListener, TaskCallback {
+
+    private DiscoverRecommendAdapter adapter;
 
     public DiscoverRecommendFragment() {
     }
@@ -36,60 +43,28 @@ public class DiscoverRecommendFragment extends Fragment implements AdapterView.O
         if (listView != null) {
 
             // TODO 设置实际数据的 Adapter
-
             /////
-
-            // 添加头部
-
-            FragmentActivity activity = getActivity();
-
-            ImageView imageView = new ImageView(activity);
-
-            imageView.setImageResource(R.mipmap.ic_launcher);
-
-            // 通过这个方法，添加跟随滚动的Header
-            listView.addHeaderView(imageView);
-
-            imageView = new ImageView(activity);
-            imageView.setImageResource(R.mipmap.ic_action_search);
-            listView.addHeaderView(imageView);
-
-            //////////////////
-
-            // 添加底部视图
-
-            TextView btn = new TextView(activity);
-            btn.setText("点击加载更多");
-
-            listView.addFooterView(btn);
-
-
-
-            ArrayList<String> strings = new ArrayList<String>();
-
-            for (int i = 0; i < 30; i++) {
-                strings.add("Java - " + i);
-            }
-
-            ArrayAdapter<String> adapter =
-                    new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, strings);
-
+            adapter = new DiscoverRecommendAdapter(getActivity());
             listView.setAdapter(adapter);
-
-            ////////////////
-
-            listView.setOnItemClickListener(this);
-
         }
 
         return ret;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        DiscoverRecommendTask task =
+                new DiscoverRecommendTask(this);
+        task.execute();
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         FragmentActivity activity = getActivity();
 
-        if (parent instanceof ListView){
+        if (parent instanceof ListView) {
             ListView listView = (ListView) parent;
             int headerViewsCount = listView.getHeaderViewsCount();
 
@@ -98,22 +73,45 @@ public class DiscoverRecommendFragment extends Fragment implements AdapterView.O
 
             int footerViewsCount = listView.getFooterViewsCount();
 
-            if(footerViewsCount > 0){
+            if (footerViewsCount > 0) {
                 // 数据的个数
-                if(position >= 30){
+                if (position >= 30) {
                     // 点的不是数据，因为
-                }else{
+                } else {
 
                 }
-            }else{
+            } else {
                 // 点到数据上了
             }
-
-
 
 
         }
 
         Toast.makeText(activity, "点击 " + position, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTaskFinished(TaskResult result) {
+        if (result != null) {
+
+            int taskId = result.taskId;
+
+            Object data = result.data;
+
+            if(taskId == Constants.TASK_DISCOVER_RECOMMEND){
+
+                if (data != null) {
+                    if (data instanceof JSONObject){
+                        JSONObject json = (JSONObject) data;
+                        DiscoverRecommend discoverRecommend = DataParser.parseDiscoverRecommend(json);
+
+                        adapter.setRecommend(discoverRecommend);
+
+                    }
+                }
+
+            }
+
+        }
     }
 }
