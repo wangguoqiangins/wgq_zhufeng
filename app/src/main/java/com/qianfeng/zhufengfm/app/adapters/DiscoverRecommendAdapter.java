@@ -33,6 +33,11 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
      */
     private DiscoverRecommend recommend;
 
+    /**
+     * 更多、专辑点击的接口
+     */
+    private View.OnClickListener onClickListener;
+
     public DiscoverRecommendAdapter(Context context) {
         this.context = context;
     }
@@ -46,6 +51,10 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
     public void setRecommend(DiscoverRecommend recommend) {
         this.recommend = recommend;
         notifyDataSetChanged();
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
     @Override
@@ -183,6 +192,9 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
             holder = new HotRecommendViewHolder();
             holder.txtTitle = (TextView) ret.findViewById(R.id.item_recommend_album_title);
             holder.txtMore = (TextView) ret.findViewById(R.id.item_recommend_album_more);
+
+            holder.txtMore.setOnClickListener(onClickListener);
+
             holder.blocks = new ViewGroup[3];
             holder.blocks[0] = (ViewGroup) ret.findViewById(R.id.item_recommend_album_block0);
             holder.blocks[1] = (ViewGroup) ret.findViewById(R.id.item_recommend_album_block1);
@@ -220,11 +232,16 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
             for (int i = 0; i < size; i++) {
                 ViewGroup block = holder.blocks[i];
+
                 ImageButton img = (ImageButton) block.getChildAt(0);
+
+                img.setOnClickListener(onClickListener);
+
                 TextView blockTitle = (TextView) block.getChildAt(1);
+
                 // TODO 加载图片
                 AlbumRecommend recommend = list.get(i);
-                blockTitle.setText(recommend.getTitle());
+                blockTitle.setText(recommend.getTrackTitle());
 
             }
         }
@@ -261,22 +278,37 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
             holder.txtTitle = (TextView) ret.findViewById(R.id.item_recommend_album_title);
             holder.txtMore = (TextView) ret.findViewById(R.id.item_recommend_album_more);
 
+            //////////////////////////
+            // 设置 更多的点击处理事件
+
+            holder.txtMore.setOnClickListener(onClickListener);
+
+            //////////////////////////
+
             holder.block0 = (LinearLayout) ret.findViewById(R.id.item_recommend_album_block0);
             holder.block1 = (LinearLayout) ret.findViewById(R.id.item_recommend_album_block1);
             holder.block2 = (LinearLayout) ret.findViewById(R.id.item_recommend_album_block2);
 
             holder.block0ImageButton =
                     (ImageButton) holder.block0.getChildAt(0);
+
+            holder.block0ImageButton.setOnClickListener(onClickListener);
+
             holder.block0TextView =
                     (TextView) holder.block0.getChildAt(1);
 
             holder.block1ImageButton =
                     (ImageButton) holder.block1.getChildAt(0);
+
+            holder.block1ImageButton.setOnClickListener(onClickListener);
+
             holder.block1TextView =
                     (TextView) holder.block1.getChildAt(1);
 
             holder.block2ImageButton =
                     (ImageButton) holder.block2.getChildAt(0);
+            holder.block2ImageButton.setOnClickListener(onClickListener);
+
             holder.block2TextView =
                     (TextView) holder.block2.getChildAt(1);
 
@@ -316,7 +348,7 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
                 String coverLarge = recommend.getCoverLarge();
 
-                String tit = recommend.getTitle();
+                String tit = recommend.getTrackTitle();
 
                 switch (i){
                     case 0:
