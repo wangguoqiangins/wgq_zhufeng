@@ -52,8 +52,7 @@
             <!-- 下面的控件都是通过 getChildAt() 来获取，指定ID
             就太多了-->
             <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/DiscoverRecommend.AlbumImage"
                     android:src="@mipmap/ic_launcher"
                     />
             <TextView
@@ -76,8 +75,7 @@
             <!-- 下面的控件都是通过 getChildAt() 来获取，指定ID
             就太多了-->
             <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/DiscoverRecommend.AlbumImage"
                     android:src="@mipmap/ic_launcher"
                     />
             <TextView
@@ -100,8 +98,7 @@
             <!-- 下面的控件都是通过 getChildAt() 来获取，指定ID
             就太多了-->
             <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/DiscoverRecommend.AlbumImage"
                     android:src="@mipmap/ic_launcher"
                     />
             <TextView

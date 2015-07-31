@@ -25,4 +25,14 @@
     <!-- Backward-compatible version of ?android:attr/buttonBarButtonStyle -->
     <style name="ButtonBarButton"/>
 
+    <style name="DiscoverRecommend">
+
+    </style>
+
+    <style name="DiscoverRecommend.AlbumImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">90dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
 </resources>

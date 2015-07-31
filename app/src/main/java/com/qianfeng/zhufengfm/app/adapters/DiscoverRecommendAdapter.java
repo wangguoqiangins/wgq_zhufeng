@@ -1,16 +1,16 @@
 package com.qianfeng.zhufengfm.app.adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.qianfeng.zhufengfm.app.R;
 import com.qianfeng.zhufengfm.app.model.DiscoverRecommend;
 import com.qianfeng.zhufengfm.app.model.discover.*;
+import com.qianfeng.zhufengfm.app.tasks.ImageLoadTask;
 
 import java.util.List;
 
@@ -171,6 +171,7 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
     /**
      * 热门推荐
+     *
      * @param item
      * @param convertView
      * @param parent
@@ -181,8 +182,8 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
         if (convertView != null) {
             ret = convertView;
-        }else{
-            ret = LayoutInflater.from(context).inflate(R.layout.item_recommend_album,parent, false);
+        } else {
+            ret = LayoutInflater.from(context).inflate(R.layout.item_recommend_album, parent, false);
         }
 
         HotRecommendViewHolder holder =
@@ -211,9 +212,9 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
         boolean hasMore = hot.isHasMore();
 
-        if (hasMore){
+        if (hasMore) {
             holder.txtMore.setVisibility(View.VISIBLE);
-        } else{
+        } else {
             holder.txtMore.setVisibility(View.INVISIBLE);
         }
 
@@ -226,7 +227,7 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
             int size = list.size();
 
-            if(size > 3){
+            if (size > 3) {
                 size = 3;
             }
 
@@ -235,13 +236,48 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
                 ImageButton img = (ImageButton) block.getChildAt(0);
 
+                AlbumRecommend recommend = list.get(i);
+
+                // 网址
+                String coverLarge = recommend.getCoverLarge();
+
+                boolean needLoad = true;
+                Object tag = img.getTag();
+                if (tag != null) {
+                    if(tag instanceof String){
+                        String s = (String) tag;
+                        if(s.equals(coverLarge)){
+                            needLoad = false;
+                        }
+                    }
+                }
+                if(needLoad) {
+                    // 设置“图片加载中”显示
+                    img.setImageResource(R.mipmap.ic_launcher);
+                }
+
                 img.setOnClickListener(onClickListener);
 
                 TextView blockTitle = (TextView) block.getChildAt(1);
 
                 // TODO 加载图片
-                AlbumRecommend recommend = list.get(i);
                 blockTitle.setText(recommend.getTrackTitle());
+
+                // 用于在异步任务中，进行图片下载地址的识别，避免错位
+                img.setTag(coverLarge);
+
+                if (coverLarge != null && needLoad) {
+
+                    ImageLoadTask task = new ImageLoadTask(img);
+
+                    // 手机版本的适配
+                    if (Build.VERSION.SDK_INT >= 11) {
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, coverLarge);
+                    } else {
+                        task.execute(coverLarge);
+                    }
+                }
+
 
             }
         }
@@ -324,9 +360,9 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
         //////////////////////////////////////////
 
         boolean hasMore = albums.isHasMore();
-        if(hasMore){
+        if (hasMore) {
             holder.txtMore.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             holder.txtMore.setVisibility(View.INVISIBLE);
         }
 
@@ -338,7 +374,7 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
             int size = list.size();
 
-            if(size > 3){
+            if (size > 3) {
                 size = 3;
             }
 
@@ -346,23 +382,46 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
 
                 AlbumRecommend recommend = list.get(i);
 
+                // 图片的网址
                 String coverLarge = recommend.getCoverLarge();
 
                 String tit = recommend.getTrackTitle();
 
-                switch (i){
+                ImageView imageView = null;
+
+                switch (i) {
                     case 0:
                         // TODO 需要显示图片
                         holder.block0TextView.setText(tit);
+                        imageView = holder.block0ImageButton;
                         break;
                     case 1:
                         // TODO 需要显示图片
                         holder.block1TextView.setText(tit);
+                        imageView = holder.block1ImageButton;
                         break;
                     case 2:
                         // TODO 需要显示图片
                         holder.block2TextView.setText(tit);
+                        imageView = holder.block2ImageButton;
                         break;
+                }
+
+                if (imageView != null && coverLarge != null) {
+
+                    imageView.setImageResource(R.mipmap.ic_launcher);
+
+                    // 设置ImageView的 Tag，在异步任务中，需要检查这个Tag
+                    imageView.setTag(coverLarge);
+
+                    ImageLoadTask task = new ImageLoadTask(imageView);
+
+                    // 手机版本的适配
+                    if (Build.VERSION.SDK_INT >= 11) {
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, coverLarge);
+                    } else {
+                        task.execute(coverLarge);
+                    }
                 }
 
             }
@@ -372,7 +431,7 @@ public class DiscoverRecommendAdapter extends BaseAdapter {
         return ret;
     }
 
-    private static class HotRecommendViewHolder{
+    private static class HotRecommendViewHolder {
         public TextView txtTitle;
         public TextView txtMore;
         /**
