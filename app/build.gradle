@@ -13,9 +13,16 @@ repositories {
 }
 
 android {
+    signingConfigs {
+        release_sign {
+            keyAlias 'release'
+            keyPassword '123456'
+            storeFile file('../release.keystore')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "com.qianfeng.zhufengfm.app"
         minSdkVersion 9
@@ -23,19 +30,21 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release_sign
         }
     }
-
+    // 代码检查选项
     lintOptions {
+        //当发现代码格式错误的时候是否终止 false
         abortOnError false
     }
 }

@@ -47,10 +47,8 @@ public class SplashActivity extends FragmentActivity implements TaskCallback {
 
         // 启动扉页，进行网络检查与网络请求，下载数据
         // 最终显示主界面
-        int a = 3;
-        int b = 0;
-        int i = a / b;
-        MyLog.d("Splash", "3 / 0 = " + i);
+
+        MyLog.d("Splash", "3 / 0");
 
         CategoryTagMenuTask task =
                 new CategoryTagMenuTask(this);
