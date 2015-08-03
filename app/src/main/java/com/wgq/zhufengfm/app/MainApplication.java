@@ -5,9 +5,8 @@ import com.wgq.zhufengfm.app.cache.FileCache;
 
 /**
  * Created with IntelliJ IDEA.
- * User: vhly[FR]
+ * User: wgq
  * Date: 15/7/31
- * Email: vhly@163.com
  */
 public class MainApplication extends Application {
 

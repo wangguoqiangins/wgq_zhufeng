@@ -16,4 +16,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_test1">Test1Activity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_colums_detaile">ColumsDetaileActivity</string>
 </resources>

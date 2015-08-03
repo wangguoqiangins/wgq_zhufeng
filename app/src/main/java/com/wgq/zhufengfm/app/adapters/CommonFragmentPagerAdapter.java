@@ -8,9 +8,6 @@ import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
- * User: vhly[FR]
- * Date: 15/7/29
- * Email: vhly@163.com
  */
 public class CommonFragmentPagerAdapter extends FragmentPagerAdapter {
 

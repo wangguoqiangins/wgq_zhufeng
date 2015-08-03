@@ -48,4 +48,5 @@ public class Constants {
 
     public static final String TAG_DISCOVER_RECOMMEND_EDITOR = "editor";
     public static final String TAG_DISCOVER_HOT_RECOMMEND = "hotRecommend";
+    public static final int TEST_RESULT = 5;
 }

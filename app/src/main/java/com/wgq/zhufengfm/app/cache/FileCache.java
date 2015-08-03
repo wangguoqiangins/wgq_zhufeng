@@ -2,9 +2,6 @@ package com.wgq.zhufengfm.app.cache;
 
 /**
  * Created with IntelliJ IDEA.
- * User: vhly[FR]
- * Date: 15/7/31
- * Email: vhly@163.com
  */
 
 import android.content.Context;
